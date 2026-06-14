@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>پنل ادمین - BoBo Collection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>پنل مدیریت</h1>
+    <a class="back-link" href="index.html">بازگشت به فروشگاه</a>
+  </header>
+
+  <div id="login-box" class="form-box">
+    <h2>ورود ادمین</h2>
+    <input type="password" id="token-input" placeholder="توکن ادمین">
+    <button onclick="login()">ورود</button>
+  </div>
+
+  <div id="admin-panel" style="display:none">
+    <div class="form-box">
+      <h2>افزودن محصول جدید</h2>
+      <input type="text" id="name" placeholder="نام محصول">
+      <input type="number" id="price" placeholder="قیمت (تومان)">
+      <input type="text" id="image" placeholder="لینک عکس">
+      <button onclick="addProduct()">افزودن</button>
+    </div>
+
+    <div class="list-box">
+      <h2>لیست محصولات</h2>
+      <div id="products"></div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
