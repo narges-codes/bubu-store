@@ -33,8 +33,8 @@ async function getProducts() {
     container.innerHTML += `
     <div class="admin-card">
       <img src="${p.image || 'https://via.placeholder.com/200'}" alt="${p.name}">
-      <span>${p.name} - ${(Number(p.price) || 0).toLocaleString()} تومان</span>
-      <button onclick="editProduct(${p.id}, '${p.name}', ${p.price}, '${p.image}')">ویرایش</button>
+      <span>${p.name} - ${(Number(p.price) || 0).toLocaleString()} تومان (${p.category || 'عمومی'})</span>
+      <button onclick="editProduct(${p.id}, '${p.name}', ${p.price}, '${p.image}', '${p.category}')">ویرایش</button>
       <button onclick="deleteProduct(${p.id})">حذف</button>
     </div>`;
   });
@@ -44,11 +44,12 @@ async function addProduct() {
   const name = document.getElementById('name').value;
   const price = document.getElementById('price').value;
   const image = document.getElementById('image').value;
+  const category = document.getElementById('category').value;
 
   const res = await fetch('/products', {
     method: 'POST',
     headers: authHeaders(),
-    body: JSON.stringify({ name, price: Number(price), image })
+    body: JSON.stringify({ name, price: Number(price), image, category })
   });
 
   if (res.status === 401) return alert('توکن اشتباهه!');
@@ -59,22 +60,22 @@ async function addProduct() {
   getProducts();
 }
 
-async function editProduct(id, name, price, image) {
+async function editProduct(id, name, price, image, category) {
   const newName = prompt('نام جدید:', name);
   if (newName === null) return;
   const newPrice = prompt('قیمت جدید:', price);
   const newImage = prompt('لینک عکس جدید:', image);
+  const newCategory = prompt('دسته‌بندی جدید (تیشرت/شلوار/کت/کفش/اکسسوری):', category || 'عمومی');
 
   const res = await fetch(`/products/${id}`, {
     method: 'PUT',
     headers: authHeaders(),
-    body: JSON.stringify({ name: newName, price: Number(newPrice), image: newImage })
+    body: JSON.stringify({ name: newName, price: Number(newPrice), image: newImage, category: newCategory })
   });
 
   if (res.status === 401) return alert('توکن اشتباهه!');
   getProducts();
 }
-
 async function deleteProduct(id) {
   const res = await fetch(`/products/${id}`, {
     method: 'DELETE',
