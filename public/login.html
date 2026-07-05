@@ -1,16 +1,52 @@
-<!-- فرم ورود -->
-<form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
-  <input type="tel" id="loginPhone" placeholder="شماره موبایل (مثال: 09121234567)" required pattern="09[0-9]{9}">
-  <input type="password" id="loginPassword" placeholder="رمز عبور" required>
-  <button type="submit" class="auth-btn">ورود</button>
-  <p class="auth-msg" id="loginMsg"></p>
-</form>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ورود | Bubu Collection</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
 
-<!-- فرم ثبت‌نام -->
-<form id="registerForm" class="auth-form" style="display:none" onsubmit="handleRegister(event)">
-  <input type="text" id="regName" placeholder="نام و نام خانوادگی" required>
-  <input type="tel" id="regPhone" placeholder="شماره موبایل (مثال: 09121234567)" required pattern="09[0-9]{9}">
-  <input type="password" id="regPassword" placeholder="رمز عبور (حداقل ۶ کاراکتر)" required minlength="6">
-  <button type="submit" class="auth-btn">ثبت‌نام</button>
-  <p class="auth-msg" id="registerMsg"></p>
-</form>
+  <!-- هدر ساده -->
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">Bubu<span>Collection</span></a>
+      <a href="index.html" class="back-link">بازگشت به فروشگاه</a>
+    </div>
+  </header>
+
+  <!-- فرم ورود/ثبت‌نام -->
+  <div class="auth-page">
+    <div class="auth-box">
+      <!-- تب‌ها -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">ورود</button>
+        <button class="auth-tab" id="registerTab" onclick="switchTab('register')">ثبت‌نام</button>
+      </div>
+
+      <!-- فرم ورود -->
+      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+        <input type="tel" id="loginPhone" placeholder="شماره موبایل (مثال: 09121234567)" required pattern="09[0-9]{9}">
+        <input type="password" id="loginPassword" placeholder="رمز عبور" required>
+        <button type="submit" class="auth-btn">ورود</button>
+        <p class="auth-msg" id="loginMsg"></p>
+      </form>
+
+      <!-- فرم ثبت‌نام -->
+      <form id="registerForm" class="auth-form" style="display:none" onsubmit="handleRegister(event)">
+        <input type="text" id="regName" placeholder="نام و نام خانوادگی" required>
+        <input type="tel" id="regPhone" placeholder="شماره موبایل (مثال: 09121234567)" required pattern="09[0-9]{9}">
+        <input type="password" id="regPassword" placeholder="رمز عبور (حداقل ۶ کاراکتر)" required minlength="6">
+        <button type="submit" class="auth-btn">ثبت‌نام</button>
+        <p class="auth-msg" id="registerMsg"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
