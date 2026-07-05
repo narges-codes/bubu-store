@@ -7,12 +7,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'change-this-jwt-secret';
 // POST /auth/register
 async function register(req, res) {
   try {
-    const { name, email, password } = req.body;
+    const { name, phone, password } = req.body;
 
-    // چک کن ایمیل تکراری نباشه
-    const existing = await User.findOne({ where: { email } });
+    // چک کن شماره تکراری نباشه
+    const existing = await User.findOne({ where: { phone } });
     if (existing) {
-      return res.status(400).json({ error: 'این ایمیل قبلا ثبت شده' });
+      return res.status(400).json({ error: 'این شماره قبلا ثبت شده' });
     }
 
     // هش پسورد
@@ -21,13 +21,13 @@ async function register(req, res) {
     // ساخت کاربر
     const user = await User.create({
       name,
-      email,
+      phone,
       password: hashedPassword
     });
 
     res.status(201).json({
       message: 'ثبت‌نام موفق',
-      user: { id: user.id, name: user.name, email: user.email }
+      user: { id: user.id, name: user.name, phone: user.phone }
     });
   } catch (err) {
     console.error(err);
@@ -38,21 +38,18 @@ async function register(req, res) {
 // POST /auth/login
 async function login(req, res) {
   try {
-    const { email, password } = req.body;
+    const { phone, password } = req.body;
 
-    // کاربر رو پیدا کن
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { phone } });
     if (!user) {
-      return res.status(401).json({ error: 'ایمیل یا پسورد اشتباه است' });
+      return res.status(401).json({ error: 'شماره یا پسورد اشتباه است' });
     }
 
-    // پسورد رو چک کن
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'ایمیل یا پسورد اشتباه است' });
+      return res.status(401).json({ error: 'شماره یا پسورد اشتباه است' });
     }
 
-    // توکن بساز
     const token = jwt.sign(
       { id: user.id, role: user.role },
       JWT_SECRET,
@@ -62,7 +59,7 @@ async function login(req, res) {
     res.json({
       message: 'ورود موفق',
       token,
-      user: { id: user.id, name: user.name, email: user.email, role: user.role }
+      user: { id: user.id, name: user.name, phone: user.phone, role: user.role }
     });
   } catch (err) {
     console.error(err);

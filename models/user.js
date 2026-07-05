@@ -9,12 +9,12 @@ const User = sequelize.define('User', {
       notEmpty: true
     }
   },
-  email: {
+  phone: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
     validate: {
-      isEmail: true
+      notEmpty: true
     }
   },
   password: {
@@ -23,7 +23,7 @@ const User = sequelize.define('User', {
   },
   role: {
     type: DataTypes.STRING,
-    defaultValue: 'user'  // 'user' یا 'admin'
+    defaultValue: 'user'
   }
 });
 

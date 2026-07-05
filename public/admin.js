@@ -29,11 +29,15 @@ async function getProducts() {
   const products = await res.json();
   const container = document.getElementById('products');
   container.innerHTML = '';
+  if (products.length === 0) {
+    container.innerHTML = '<p>هیچ محصولی وجود ندارد</p>';
+    return;
+  }
   products.forEach(p => {
     container.innerHTML += `
     <div class="admin-card">
       <img src="${p.image || 'https://via.placeholder.com/200'}" alt="${p.name}">
-      <span>${p.name} - ${(Number(p.price) || 0).toLocaleString()} تومان (${p.category || 'عمومی'})</span>
+      <span>${p.name} - ${(Number(p.price) || 0).toLocaleString('fa-IR')} تومان (${p.category || 'عمومی'})</span>
       <button onclick="editProduct(${p.id}, '${p.name}', ${p.price}, '${p.image}', '${p.category}')">ویرایش</button>
       <button onclick="deleteProduct(${p.id})">حذف</button>
     </div>`;
@@ -45,6 +49,11 @@ async function addProduct() {
   const price = document.getElementById('price').value;
   const image = document.getElementById('image').value;
   const category = document.getElementById('category').value;
+
+  if (!name || !price) {
+    alert('نام و قیمت الزامی است');
+    return;
+  }
 
   const res = await fetch('/products', {
     method: 'POST',
@@ -76,7 +85,10 @@ async function editProduct(id, name, price, image, category) {
   if (res.status === 401) return alert('توکن اشتباهه!');
   getProducts();
 }
+
 async function deleteProduct(id) {
+  if (!confirm('مطمئنی می‌خوای حذف کنی؟')) return;
+  
   const res = await fetch(`/products/${id}`, {
     method: 'DELETE',
     headers: { 'x-admin-token': getToken() }

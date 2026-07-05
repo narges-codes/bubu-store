@@ -1,0 +1,16 @@
+<!-- فرم ورود -->
+<form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+  <input type="tel" id="loginPhone" placeholder="شماره موبایل (مثال: 09121234567)" required pattern="09[0-9]{9}">
+  <input type="password" id="loginPassword" placeholder="رمز عبور" required>
+  <button type="submit" class="auth-btn">ورود</button>
+  <p class="auth-msg" id="loginMsg"></p>
+</form>
+
+<!-- فرم ثبت‌نام -->
+<form id="registerForm" class="auth-form" style="display:none" onsubmit="handleRegister(event)">
+  <input type="text" id="regName" placeholder="نام و نام خانوادگی" required>
+  <input type="tel" id="regPhone" placeholder="شماره موبایل (مثال: 09121234567)" required pattern="09[0-9]{9}">
+  <input type="password" id="regPassword" placeholder="رمز عبور (حداقل ۶ کاراکتر)" required minlength="6">
+  <button type="submit" class="auth-btn">ثبت‌نام</button>
+  <p class="auth-msg" id="registerMsg"></p>
+</form>

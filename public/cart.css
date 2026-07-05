@@ -1,0 +1,214 @@
+/* ===== صفحه سبد خرید ===== */
+.back-link {
+  font-size: 14px;
+  color: var(--gray);
+  transition: var(--transition);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.cart-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* ===== آیتم سبد ===== */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--gray-light);
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.cart-item-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--gray-light);
+  border-radius: 8px;
+  background: var(--white);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-btn:hover {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.qty-display {
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 30px;
+  text-align: center;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #E74C3C;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 8px;
+}
+
+.cart-item-remove:hover {
+  text-decoration: underline;
+}
+
+.cart-item-total {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ===== خلاصه سبد ===== */
+.cart-summary {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-top: 24px;
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.cart-summary-total {
+  border-top: 2px solid var(--gray-light);
+  padding-top: 16px;
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.cart-summary-total .price {
+  color: var(--accent);
+}
+
+.checkout-btn {
+  width: 100%;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 20px;
+}
+
+.checkout-btn:hover {
+  background: var(--accent);
+}
+
+.checkout-btn:disabled {
+  background: var(--gray-light);
+  color: var(--gray);
+  cursor: not-allowed;
+}
+
+/* ===== سبد خالی ===== */
+.empty-cart {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray);
+}
+
+.empty-cart h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: var(--black);
+}
+
+.empty-cart a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 32px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 50px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.empty-cart a:hover {
+  background: var(--accent);
+}
+
+/* ===== ریسپانسیو ===== */
+@media (max-width: 600px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .cart-item-img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .cart-item-controls {
+    justify-content: center;
+  }
+}
