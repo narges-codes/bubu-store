@@ -1,33 +1,42 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const { User } = require('../models/relations');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'change-this-jwt-secret';
 
-// POST /auth/register
+function makeToken(user) {
+  return jwt.sign(
+    { id: user.id, role: user.role, name: user.name, phone: user.phone },
+    JWT_SECRET,
+    { expiresIn: '7d' }
+  );
+}
+
 async function register(req, res) {
   try {
     const { name, phone, password } = req.body;
 
-    // چک کن شماره تکراری نباشه
-    const existing = await User.findOne({ where: { phone } });
-    if (existing) {
+    if (!name || !phone || !password) {
+      return res.status(400).json({ error: 'نام، شماره و رمز الزامی است' });
+    }
+    if (!/^09\d{9}$/.test(phone)) {
+      return res.status(400).json({ error: 'شماره موبایل معتبر نیست (مثال: 09121234567)' });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'رمز باید حداقل ۶ کاراکتر باشد' });
+    }
+
+    const exists = await User.findOne({ where: { phone } });
+    if (exists) {
       return res.status(400).json({ error: 'این شماره قبلا ثبت شده' });
     }
 
-    // هش پسورد
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // ساخت کاربر
-    const user = await User.create({
-      name,
-      phone,
-      password: hashedPassword
-    });
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, phone, password: hashed, role: 'user' });
 
     res.status(201).json({
       message: 'ثبت‌نام موفق',
-      user: { id: user.id, name: user.name, phone: user.phone }
+      user: { id: user.id, name: user.name, phone: user.phone, role: user.role }
     });
   } catch (err) {
     console.error(err);
@@ -35,30 +44,22 @@ async function register(req, res) {
   }
 }
 
-// POST /auth/login
 async function login(req, res) {
   try {
     const { phone, password } = req.body;
-
     const user = await User.findOne({ where: { phone } });
     if (!user) {
-      return res.status(401).json({ error: 'شماره یا پسورد اشتباه است' });
+      return res.status(401).json({ error: 'شماره یا رمز اشتباه است' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ error: 'شماره یا پسورد اشتباه است' });
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) {
+      return res.status(401).json({ error: 'شماره یا رمز اشتباه است' });
     }
-
-    const token = jwt.sign(
-      { id: user.id, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
 
     res.json({
       message: 'ورود موفق',
-      token,
+      token: makeToken(user),
       user: { id: user.id, name: user.name, phone: user.phone, role: user.role }
     });
   } catch (err) {
@@ -67,4 +68,16 @@ async function login(req, res) {
   }
 }
 
-module.exports = { register, login };
+async function me(req, res) {
+  try {
+    const user = await User.findByPk(req.user.id, {
+      attributes: ['id', 'name', 'phone', 'role', 'createdAt']
+    });
+    if (!user) return res.status(404).json({ error: 'کاربر پیدا نشد' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: 'خطای سرور' });
+  }
+}
+
+module.exports = { register, login, me };

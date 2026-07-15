@@ -1,39 +1,59 @@
-# 🛍️ Bubu Collection
+# Bubu Collection
 
-فروشگاه آنلاین لباس - ساخته شده با Node.js و SQLite
+فروشگاه آنلاین لباس با Node.js + Express + SQLite + MVC
 
-## 🛠️ تکنولوژی‌ها
-- **Backend:** Node.js, Express
-- **Database:** SQLite, Sequelize
-- **Frontend:** HTML, CSS, JavaScript
+## امکانات
 
-## ✨ قابلیت‌ها
-- نمایش محصولات
-- پنل ادمین با احراز هویت
-- افزودن، ویرایش و حذف محصول
-- ریسپانسیو
+- صفحه فروشگاه با دسته‌بندی: تیشرت، کراپ‌تاپ، ست، شلوار، کت، کفش، اکسسوری
+- صفحه محصول با انتخاب **رنگ** و **سایز** (یا فری‌سایز)
+- نظرات کاربران روی محصول
+- ثبت‌نام/ورود با **شماره موبایل**
+- سبد خرید
+- ثبت سفارش + آدرس
+- پنل ادمین:
+  - مدیریت محصولات
+  - مشاهده سفارش‌ها و تغییر وضعیت
+  - لیست کاربران
 
-## 🚀 نصب و اجرا
+## نصب و اجرا
+
 ```bash
 npm install
-node server.js
+cp .env.example .env
+# مقادیر .env را تنظیم کنید
+npm run seed
+npm start
 ```
 
-## 📁 ساختار پروژه
+باز کنید:
+
+- فروشگاه: http://localhost:3000
+- ورود: http://localhost:3000/login.html
+- سبد: http://localhost:3000/cart.html
+- سفارش‌ها: http://localhost:3000/orders.html
+- ادمین: http://localhost:3000/admin.html
+
+## حساب‌های تست (بعد از seed)
+
+- کاربر: `09121234567` / `123456`
+- ادمین پنل (توکن): مقدار `ADMIN_TOKEN` داخل `.env`
+- کاربر ادمین دیتابیس: `09120000000` / `admin123`
+
+## ساختار MVC
+
 ```
-bubu-store/
-├── server.js
-├── public/
-│   ├── index.html
-│   ├── admin.html
-│   ├── style.css
-│   ├── script.js
-│   └── admin.js
+controllers/
+models/
+routes/
+middleware/
+public/
+server.js
+seed.js
 ```
-## 🔜 کارهای آینده
-- [ ] جدا کردن Model و Controller
-- [ ] اضافه کردن دسته‌بندی محصولات
-- [ ] سایز و رنگ برای محصولات
-- [ ] صفحه جزئیات محصول
-- [ ] درگاه پرداخت
-- [ ] فیگما و UI بهتر
+
+## مسیر توسعه بعدی
+
+- OTP پیامکی واقعی
+- درگاه پرداخت (زرین‌پال)
+- آپلود عکس محلی
+- دامنه + هاست

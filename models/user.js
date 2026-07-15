@@ -4,18 +4,12 @@ const sequelize = require('./index');
 const User = sequelize.define('User', {
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    allowNull: false
   },
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
-    validate: {
-      notEmpty: true
-    }
+    unique: true
   },
   password: {
     type: DataTypes.STRING,
@@ -23,7 +17,7 @@ const User = sequelize.define('User', {
   },
   role: {
     type: DataTypes.STRING,
-    defaultValue: 'user'
+    defaultValue: 'user' // user | admin
   }
 });
 

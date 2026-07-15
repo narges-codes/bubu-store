@@ -4,26 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>محصول | Bubu Collection</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- هدر -->
   <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo">Bubu<span>Collection</span></a>
-      <a href="index.html" class="back-link">بازگشت به محصولات</a>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Bubu<span>Collection</span></a>
+      <div class="header-actions">
+        <a class="icon-btn" href="cart.html">🛒<span class="badge" id="cartCount">0</span></a>
+        <a class="btn btn-outline" href="index.html">بازگشت</a>
+      </div>
     </div>
   </header>
 
-  <!-- جزئیات محصول -->
-  <div class="product-page" id="productPage">
-    <div class="loading">در حال بارگذاری...</div>
-  </div>
+  <main class="page" id="productPage">
+    <div class="empty center">در حال بارگذاری...</div>
+  </main>
 
+  <script src="app.js"></script>
   <script src="product.js"></script>
 </body>
 </html>

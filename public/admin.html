@@ -3,53 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>پنل ادمین - Bubu Collection</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>پنل ادمین | Bubu Collection</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo">Bubu<span>Collection</span></a>
-      <a href="index.html" class="back-link">بازگشت به فروشگاه</a>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Bubu<span>Admin</span></a>
+      <a class="btn btn-outline" href="index.html">مشاهده فروشگاه</a>
     </div>
   </header>
 
-  <div class="admin-page">
-    <!-- ورود ادمین -->
-    <div id="login-box" class="admin-login-box">
-      <h2>ورود ادمین</h2>
-      <input type="password" id="token-input" placeholder="توکن ادمین">
-      <button onclick="login()" class="admin-btn">ورود</button>
+  <main class="page">
+    <div id="adminLogin" class="auth-box" style="margin:0 auto">
+      <form class="form" onsubmit="adminLogin(event)">
+        <h2 class="center">ورود پنل ادمین</h2>
+        <input id="adminTokenInput" type="password" placeholder="ADMIN_TOKEN" required>
+        <button class="btn btn-primary btn-block" type="submit">ورود</button>
+        <div class="msg" id="adminLoginMsg"></div>
+      </form>
     </div>
 
-    <!-- پنل ادمین -->
-    <div id="admin-panel" style="display:none">
-      <div class="admin-form-card">
-        <h2>افزودن محصول جدید</h2>
-        <input type="text" id="name" placeholder="نام محصول">
-        <input type="number" id="price" placeholder="قیمت (تومان)">
-        <input type="text" id="image" placeholder="لینک عکس (مثال: /images/t-shirts/black.jpeg)">
-        <select id="category">
-          <option value="تیشرت">تیشرت</option>
-          <option value="شلوار">شلوار</option>
-          <option value="کت">کت</option>
-          <option value="کفش">کفش</option>
-          <option value="اکسسوری">اکسسوری</option>
-        </select>
-        <button onclick="addProduct()" class="admin-btn">افزودن</button>
-      </div>
+    <div id="adminApp" style="display:none">
+      <div class="admin-layout">
+        <aside class="side">
+          <button class="active" onclick="showSection('products', this)">محصولات</button>
+          <button onclick="showSection('orders', this)">سفارش‌ها</button>
+          <button onclick="showSection('users', this)">کاربران</button>
+          <button onclick="adminLogout()">خروج</button>
+        </aside>
 
-      <div class="admin-list-card">
-        <h2>لیست محصولات</h2>
-        <div id="products"></div>
+        <section class="admin-grid">
+          <div id="sec-products">
+            <div class="panel-card">
+              <form class="form" onsubmit="saveProduct(event)">
+                <h2>افزودن / ویرایش محصول</h2>
+                <input type="hidden" id="pId">
+                <input id="pName" placeholder="نام محصول" required>
+                <textarea id="pDesc" rows="2" placeholder="توضیحات"></textarea>
+                <input id="pPrice" type="number" placeholder="قیمت" required>
+                <input id="pImage" placeholder="لینک عکس (یا /images/...)">
+                <select id="pCategory">
+                  <option>تیشرت</option>
+                  <option>کراپ‌تاپ</option>
+                  <option>ست</option>
+                  <option>شلوار</option>
+                  <option>کت</option>
+                  <option>کفش</option>
+                  <option>اکسسوری</option>
+                </select>
+                <select id="pStyle">
+                  <option>معمولی</option>
+                  <option>کراپ</option>
+                  <option>اورسایز</option>
+                  <option>ست</option>
+                </select>
+                <input id="pColors" placeholder="رنگ‌ها با ویرگول: مشکی,سفید,کرم">
+                <label><input type="checkbox" id="pFreeSize" checked onchange="toggleSizes()"> فری‌سایز</label>
+                <input id="pSizes" placeholder="سایزها با ویرگول: S,M,L,XL" style="display:none">
+                <input id="pStock" type="number" placeholder="موجودی" value="20">
+                <button class="btn btn-primary btn-block" type="submit">ذخیره محصول</button>
+                <div class="msg" id="pMsg"></div>
+              </form>
+            </div>
+            <div class="panel-card" style="padding:16px;margin-top:16px">
+              <h2 style="margin-bottom:12px">لیست محصولات</h2>
+              <div id="adminProducts"></div>
+            </div>
+          </div>
+
+          <div id="sec-orders" style="display:none">
+            <div class="panel-card" style="padding:16px">
+              <h2 style="margin-bottom:12px">سفارش‌ها</h2>
+              <div id="adminOrders"></div>
+            </div>
+          </div>
+
+          <div id="sec-users" style="display:none">
+            <div class="panel-card" style="padding:16px">
+              <h2 style="margin-bottom:12px">کاربران ثبت‌نام‌شده</h2>
+              <div id="adminUsers"></div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
-  </div>
+  </main>
 
-  <script src="admin.js"></script>
+  <script src="app.js"></script>
+  <script src="admin-page.js"></script>
 </body>
 </html>
