@@ -5,37 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>پنل ادمین - Bubu Collection</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
-  <header>
-    <h1>پنل مدیریت</h1>
-    <a class="back-link" href="index.html">بازگشت به فروشگاه</a>
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">Bubu<span>Collection</span></a>
+      <a href="index.html" class="back-link">بازگشت به فروشگاه</a>
+    </div>
   </header>
 
-  <div id="login-box" class="form-box">
-    <h2>ورود ادمین</h2>
-    <input type="password" id="token-input" placeholder="توکن ادمین">
-    <button onclick="login()">ورود</button>
-  </div>
-
-  <div id="admin-panel" style="display:none">
-    <div class="form-box">
-      <h2>افزودن محصول جدید</h2>
-      <input type="text" id="name" placeholder="نام محصول">
-      <input type="number" id="price" placeholder="قیمت (تومان)">
-      <input type="text" id="image" placeholder="لینک عکس">
-      <select id="category">
-        <option value="تیشرت">تیشرت</option>
-        <option value="شلوار">شلوار</option>
-        <option value="کت">کت</option>
-      </select>
-      <button onclick="addProduct()">افزودن</button>
+  <div class="admin-page">
+    <!-- ورود ادمین -->
+    <div id="login-box" class="admin-login-box">
+      <h2>ورود ادمین</h2>
+      <input type="password" id="token-input" placeholder="توکن ادمین">
+      <button onclick="login()" class="admin-btn">ورود</button>
     </div>
 
-    <div class="list-box">
-      <h2>لیست محصولات</h2>
-      <div id="products"></div>
+    <!-- پنل ادمین -->
+    <div id="admin-panel" style="display:none">
+      <div class="admin-form-card">
+        <h2>افزودن محصول جدید</h2>
+        <input type="text" id="name" placeholder="نام محصول">
+        <input type="number" id="price" placeholder="قیمت (تومان)">
+        <input type="text" id="image" placeholder="لینک عکس (مثال: /images/t-shirts/black.jpeg)">
+        <select id="category">
+          <option value="تیشرت">تیشرت</option>
+          <option value="شلوار">شلوار</option>
+          <option value="کت">کت</option>
+          <option value="کفش">کفش</option>
+          <option value="اکسسوری">اکسسوری</option>
+        </select>
+        <button onclick="addProduct()" class="admin-btn">افزودن</button>
+      </div>
+
+      <div class="admin-list-card">
+        <h2>لیست محصولات</h2>
+        <div id="products"></div>
+      </div>
     </div>
   </div>
 

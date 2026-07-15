@@ -29,17 +29,25 @@ async function getProducts() {
   const products = await res.json();
   const container = document.getElementById('products');
   container.innerHTML = '';
+
   if (products.length === 0) {
-    container.innerHTML = '<p>هیچ محصولی وجود ندارد</p>';
+    container.innerHTML = '<p style="text-align:center;color:var(--gray);padding:20px">هیچ محصولی وجود ندارد</p>';
     return;
   }
+
   products.forEach(p => {
     container.innerHTML += `
-    <div class="admin-card">
+    <div class="admin-product-item">
       <img src="${p.image || 'https://via.placeholder.com/200'}" alt="${p.name}">
-      <span>${p.name} - ${(Number(p.price) || 0).toLocaleString('fa-IR')} تومان (${p.category || 'عمومی'})</span>
-      <button onclick="editProduct(${p.id}, '${p.name}', ${p.price}, '${p.image}', '${p.category}')">ویرایش</button>
-      <button onclick="deleteProduct(${p.id})">حذف</button>
+      <div class="admin-product-info">
+        <div class="name">${p.name}</div>
+        <div class="price">${(Number(p.price) || 0).toLocaleString('fa-IR')} تومان</div>
+        <div class="cat">${p.category || 'عمومی'}</div>
+      </div>
+      <div class="admin-product-actions">
+        <button class="admin-edit-btn" onclick="editProduct(${p.id}, '${p.name}', ${p.price}, '${p.image}', '${p.category}')">ویرایش</button>
+        <button class="admin-delete-btn" onclick="deleteProduct(${p.id})">حذف</button>
+      </div>
     </div>`;
   });
 }
@@ -67,6 +75,43 @@ async function addProduct() {
   document.getElementById('price').value = '';
   document.getElementById('image').value = '';
   getProducts();
+}
+
+async function editProduct(id, name, price, image, category) {
+  const newName = prompt('نام جدید:', name);
+  if (newName === null) return;
+  const newPrice = prompt('قیمت جدید:', price);
+  const newImage = prompt('لینک عکس جدید:', image);
+  const newCategory = prompt('دسته‌بندی جدید (تیشرت/شلوار/کت/کفش/اکسسوری):', category || 'عمومی');
+
+  const res = await fetch(`/products/${id}`, {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: JSON.stringify({ name: newName, price: Number(newPrice), image: newImage, category: newCategory })
+  });
+
+  if (res.status === 401) return alert('توکن اشتباهه!');
+  getProducts();
+}
+
+async function deleteProduct(id) {
+  if (!confirm('مطمئنی می‌خوای حذف کنی؟')) return;
+
+  const res = await fetch(`/products/${id}`, {
+    method: 'DELETE',
+    headers: { 'x-admin-token': getToken() }
+  });
+
+  if (res.status === 401) return alert('توکن اشتباهه!');
+  getProducts();
+}
+
+// --- entry point ---
+if (getToken()) {
+  showPanel();
+} else {
+  document.getElementById('login-box').style.display = 'block';
+  document.getElementById('admin-panel').style.display = 'none';
 }
 
 async function editProduct(id, name, price, image, category) {
