@@ -59,5 +59,8 @@ document.querySelectorAll('[data-cat]').forEach(a => {
     setFilter(a.dataset.cat);
   });
 });
-
+if (getToken()) {
+  document.getElementById('loginBtn').style.display = 'none';
+  document.getElementById('logoutBtn').style.display = 'inline';
+}
 loadProducts();
