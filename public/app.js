@@ -9,8 +9,11 @@ function getToken() {
 }
 
 function getUser() {
-  try { return JSON.parse(localStorage.getItem('bubuUser') || 'null'); }
-  catch { return null; }
+  try {
+    return JSON.parse(localStorage.getItem('bubuUser') || 'null');
+  } catch {
+    return null;
+  }
 }
 
 function authHeaders() {
@@ -30,7 +33,11 @@ function adminHeaders() {
 async function api(path, options = {}) {
   const res = await fetch(API + path, options);
   let data = null;
-  try { data = await res.json(); } catch { data = null; }
+  try {
+    data = await res.json();
+  } catch {
+    data = null;
+  }
   if (!res.ok) {
     const err = new Error((data && data.error) || 'خطا');
     err.status = res.status;

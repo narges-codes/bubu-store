@@ -10,15 +10,27 @@ async function seed() {
   const adminPass = await bcrypt.hash('admin123', 10);
   const userPass = await bcrypt.hash('123456', 10);
 
-  await User.create({ name: 'ادمین', phone: '09120000000', password: adminPass, role: 'admin' });
-  const user = await User.create({ name: 'نرگس', phone: '09121234567', password: userPass, role: 'user' });
+  await User.create({
+    name: 'ادمین',
+    phone: '09120000000',
+    password: adminPass,
+    role: 'admin'
+  });
 
+  const user = await User.create({
+    name: 'نرگس',
+    phone: '09121234567',
+    password: userPass,
+    role: 'user'
+  });
+
+  // عکس‌ها با لینک Unsplash (روش URL — سبک و مناسب ارائه)
   const products = [
     {
       name: 'تیشرت بیسیک مشکی',
       description: 'تیشرت نخی نرم و سبک، مناسب استفاده روزمره.',
       price: 289000,
-      image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800',
+      image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80',
       category: 'تیشرت',
       style: 'معمولی',
       colors: ['مشکی', 'سفید', 'کرم'],
@@ -30,19 +42,19 @@ async function seed() {
       name: 'تیشرت اورسایز کرم',
       description: 'برش اورسایز، پارچه سبک و خنک.',
       price: 349000,
-      image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800',
+      image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80',
       category: 'تیشرت',
       style: 'اورسایز',
-      colors: ['کرم', 'خاکستری'],
+      colors: ['کرم', 'خاکستری', 'مشکی'],
       sizes: ['M', 'L', 'XL'],
       isFreeSize: false,
       stock: 25
     },
     {
       name: 'کراپ‌تاپ پاپیونی',
-      description: 'کراپ‌تاپ شیک با جزئیات پاپیون، مناسب استایل کژوال.',
+      description: 'کراپ‌تاپ شیک با جزئیات ظریف، مناسب استایل کژوال.',
       price: 320000,
-      image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800',
+      image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
       category: 'کراپ‌تاپ',
       style: 'کراپ',
       colors: ['مشکی', 'سفید', 'صورتی'],
@@ -54,7 +66,7 @@ async function seed() {
       name: 'کراپ‌تاپ فری‌سایز',
       description: 'مدل آزاد و راحت، فری‌سایز.',
       price: 275000,
-      image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800',
+      image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80',
       category: 'کراپ‌تاپ',
       style: 'کراپ',
       colors: ['مشکی', 'بژ'],
@@ -66,7 +78,7 @@ async function seed() {
       name: 'ست کراپ و شلوارک',
       description: 'ست دو تکه راحتی برای خانه و بیرون.',
       price: 590000,
-      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800',
+      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
       category: 'ست',
       style: 'ست',
       colors: ['کرم', 'مشکی'],
@@ -78,7 +90,7 @@ async function seed() {
       name: 'شلوار جین راسته',
       description: 'جین با کیفیت، قد بلند و برش راسته.',
       price: 780000,
-      image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800',
+      image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80',
       category: 'شلوار',
       style: 'معمولی',
       colors: ['آبی تیره', 'مشکی'],
@@ -90,7 +102,7 @@ async function seed() {
       name: 'شلوار پارچه‌ای بگ',
       description: 'مدل بگ، پارچه نرم و لطیف.',
       price: 520000,
-      image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800',
+      image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80',
       category: 'شلوار',
       style: 'اورسایز',
       colors: ['کرم', 'قهوه‌ای'],
@@ -102,7 +114,7 @@ async function seed() {
       name: 'کت کژوال کرم',
       description: 'کت سبک بهاره، مناسب استایل مینیمال.',
       price: 1250000,
-      image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800',
+      image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80',
       category: 'کت',
       style: 'معمولی',
       colors: ['کرم', 'مشکی'],
@@ -114,7 +126,7 @@ async function seed() {
       name: 'کفش اسپرت سفید',
       description: 'کفش روزمره سبک و راحت.',
       price: 890000,
-      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800',
+      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80',
       category: 'کفش',
       style: 'معمولی',
       colors: ['سفید', 'مشکی'],
@@ -126,7 +138,7 @@ async function seed() {
       name: 'کیف دوشی مینیمال',
       description: 'اکسسوری شیک برای تکمیل استایل.',
       price: 410000,
-      image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800',
+      image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80',
       category: 'اکسسوری',
       style: 'معمولی',
       colors: ['مشکی', 'قهوه‌ای'],

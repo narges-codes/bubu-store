@@ -129,6 +129,36 @@ button,input,select,textarea{font-family:var(--font)}
 .tag.delivered{background:#eaf8e6}
 .tag.cancelled{background:#ffe5e5}
 
+
+/* Auth box in header (login/logout) */
+.auth-box-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:4px 6px 4px 10px;
+}
+.user-chip{
+  font-size:12px;
+  font-weight:700;
+  color:var(--black);
+  max-width:90px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.auth-box-header .icon-btn{
+  width:34px;
+  height:34px;
+  background:#fff;
+  border:0;
+  cursor:pointer;
+  font-size:16px;
+}
+button.icon-btn{font-family:var(--font)}
+
 @media (max-width:900px){
   .detail{grid-template-columns:1fr}
   .detail img{height:360px}

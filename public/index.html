@@ -23,12 +23,21 @@
       </nav>
       <div class="header-actions">
         <a class="icon-btn hide-mobile" href="orders.html" title="سفارش‌های من">📦</a>
-<a class="icon-btn hide-mobile" href="#" onclick="logout()" title="خروج" id="logoutBtn" style="display:none">🚪</a>
-<a class="icon-btn hide-mobile" href="login.html" title="ورود" id="loginBtn">👤</a>
+
+        <!-- وقتی وارد نشده -->
+        <a class="icon-btn hide-mobile" href="login.html" title="ورود" id="loginBtn">👤</a>
+
+        <!-- وقتی وارد شده: نام + خروج داخل یک کادر -->
+        <div class="auth-box-header hide-mobile" id="userBox" style="display:none">
+          <span class="user-chip" id="userNameChip">کاربر</span>
+          <button class="icon-btn" type="button" id="logoutBtn" title="خروج" onclick="logout()">🚪</button>
+        </div>
+
         <a class="icon-btn" href="cart.html" title="سبد">🛒<span class="badge" id="cartCount">0</span></a>
-        <button class="mobile-btn" id="mobileMenuBtn">☰</button>
+        <button class="mobile-btn" id="mobileMenuBtn" type="button">☰</button>
       </div>
     </div>
+
     <div class="mobile-nav" id="mobileNav">
       <a href="#" data-cat="all">همه</a>
       <a href="#" data-cat="تیشرت">تیشرت</a>
@@ -38,9 +47,11 @@
       <a href="#" data-cat="کت">کت</a>
       <a href="#" data-cat="کفش">کفش</a>
       <a href="#" data-cat="اکسسوری">اکسسوری</a>
-      <a href="login.html">ورود / ثبت‌نام</a>
-      <a href="cart.html">سبد خرید</a>
       <a href="orders.html">سفارش‌های من</a>
+      <a href="cart.html">سبد خرید</a>
+      <a href="login.html" id="mobileLoginLink">ورود / ثبت‌نام</a>
+      <a href="#" id="mobileLogoutLink" style="display:none" onclick="logout(); return false;">خروج</a>
+      <a href="admin.html">پنل ادمین</a>
     </div>
   </header>
 
@@ -52,14 +63,14 @@
 
   <main class="container" id="shop">
     <div class="tabs" id="tabs">
-      <button class="tab active" data-filter="all">همه</button>
-      <button class="tab" data-filter="تیشرت">تیشرت</button>
-      <button class="tab" data-filter="کراپ‌تاپ">کراپ‌تاپ</button>
-      <button class="tab" data-filter="ست">ست</button>
-      <button class="tab" data-filter="شلوار">شلوار</button>
-      <button class="tab" data-filter="کت">کت</button>
-      <button class="tab" data-filter="کفش">کفش</button>
-      <button class="tab" data-filter="اکسسوری">اکسسوری</button>
+      <button class="tab active" data-filter="all" type="button">همه</button>
+      <button class="tab" data-filter="تیشرت" type="button">تیشرت</button>
+      <button class="tab" data-filter="کراپ‌تاپ" type="button">کراپ‌تاپ</button>
+      <button class="tab" data-filter="ست" type="button">ست</button>
+      <button class="tab" data-filter="شلوار" type="button">شلوار</button>
+      <button class="tab" data-filter="کت" type="button">کت</button>
+      <button class="tab" data-filter="کفش" type="button">کفش</button>
+      <button class="tab" data-filter="اکسسوری" type="button">اکسسوری</button>
     </div>
     <div class="grid" id="productsGrid">
       <div class="empty center">در حال بارگذاری...</div>
@@ -82,7 +93,7 @@
       <div>
         <h4>پشتیبانی</h4>
         <a href="login.html">ورود / ثبت‌نام</a>
-        <a href="#">تلفن: ۰۹۱۲۰۰۰۰۰۰</a>
+        <a href="#">تلفن: ۰۹۱۲۰۰۰۰۰۰۰</a>
       </div>
     </div>
     <div class="footer-bottom">© 2026 Bubu Collection</div>
